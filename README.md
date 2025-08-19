@@ -1,383 +1,660 @@
-# Analysis of Algorithms - Deep Dive
-## Foundation for Logical Thinking in Computer Science
+# Complete DSA Mastery Schedule
+## 16-Week Comprehensive Program for Data Structures & Algorithms
 
 ---
 
-## **WHY ALGORITHM ANALYSIS MATTERS**
+## **PROGRAM OVERVIEW**
 
-Before writing a single line of code, you need to **predict** how your algorithm will behave:
-- How fast will it run with 1000 inputs? 1 million? 1 billion?
-- How much memory will it consume?
-- Will it scale efficiently as data grows?
+**Goal**: Master Data Structures & Algorithms with deep logical thinking and quick problem-solving skills
 
-**This is the difference between a programmer and a computer scientist.**
+**Duration**: 16 Weeks (4 Months)
 
----
+**Daily Commitment**: 2-4 hours
 
-## **PART 1: UNDERSTANDING THE PROBLEM**
-
-### **What is Algorithm Analysis?**
-Algorithm analysis is the process of determining the computational complexity of algorithms - the amount of time and space resources needed as a function of input size.
-
-### **Why Can't We Just Time Programs?**
-```python
-import time
-
-# Bad approach - timing actual execution
-start = time.time()
-result = my_algorithm(data)
-end = time.time()
-print(f"Time taken: {end - start} seconds")
-```
-
-**Problems with timing:**
-1. **Hardware dependent** - Different computers, different speeds
-2. **Implementation dependent** - Python vs C++ vs Java
-3. **Input dependent** - Lucky/unlucky test cases
-4. **Environment dependent** - Other programs running
-
-**We need a mathematical, hardware-independent way to analyze algorithms.**
+**Target**: From beginner to advanced level with strong interview preparation
 
 ---
 
-## **PART 2: ASYMPTOTIC ANALYSIS FUNDAMENTALS**
+## **PHASE 1: FOUNDATIONS (Weeks 1-4)**
 
-### **The Big Idea: Focus on Growth Rate**
+### **Week 1: Analysis & Mathematics**
+**Daily Time**: 2-3 hours
 
-Instead of exact time, we focus on **how runtime grows** as input size increases.
+**Learning Objectives**:
+- Master time and space complexity analysis
+- Understand Big O, Omega, Theta notations
+- Build strong mathematical foundation for algorithms
 
-**Example**: Compare these functions as n grows:
-- f(n) = 5n + 100
-- g(n) = n² + 10n + 50
+**Daily Schedule**:
+- **Monday-Tuesday**: 
+  - Analysis of Algorithms (Big O, Omega, Theta)
+  - Asymptotic analysis and order of growth
+  - Analysis of loops and recursion
+- **Wednesday-Thursday**: 
+  - Recursion basics and recursion tree method
+  - Solving recurrences using recursion tree
+  - Space complexity analysis
+- **Friday**: 
+  - Mathematics problems (Count digits, palindrome, factorial)
+  - GCD, LCM, prime numbers, Sieve of Eratosthenes
+- **Saturday**: 
+  - Practice all mathematics problems from course
+  - Implement algorithms from scratch
+- **Sunday**: 
+  - Review week's concepts
+  - Solve 3-5 LeetCode Easy recursion problems
 
-For small n (n=10): f(10) = 150, g(10) = 250
-For large n (n=1000): f(1000) = 5,100, g(1000) = 1,010,050
-
-**The quadratic function dominates!** This is the essence of asymptotic analysis.
-
-### **Input Size Definition**
-- **Arrays/Lists**: Number of elements (n)
-- **Strings**: Length of string (n)
-- **Numbers**: Number of digits (log n)
-- **Graphs**: Number of vertices (V) and edges (E)
-- **2D Arrays**: Rows × Columns (m × n)
-
----
-
-## **PART 3: THE THREE CASES**
-
-### **Best Case Analysis (Omega Ω)**
-**Definition**: Minimum time an algorithm takes for any input of size n.
-
-**Example - Linear Search**:
-```python
-def linear_search(arr, target):
-    for i in range(len(arr)):
-        if arr[i] == target:
-            return i
-    return -1
-
-# Best case: Target is at index 0
-arr = [5, 2, 8, 1, 9]
-result = linear_search(arr, 5)  # Found immediately!
-```
-**Best Case**: Ω(1) - Constant time
-
-### **Average Case Analysis (Theta Θ)**
-**Definition**: Average time over all possible inputs of size n.
-
-**Example - Linear Search Average**:
-- Target found at position 1: 1 comparison
-- Target found at position 2: 2 comparisons
-- ...
-- Target found at position n: n comparisons
-- Target not found: n comparisons
-
-**Average**: (1 + 2 + ... + n + n) / (n + 1) ≈ n/2
-**Average Case**: Θ(n) - Linear time
-
-### **Worst Case Analysis (Big O)**
-**Definition**: Maximum time an algorithm takes for any input of size n.
-
-**Example - Linear Search Worst**:
-```python
-arr = [2, 8, 1, 9, 5]
-result = linear_search(arr, 7)  # Not found - check entire array
-```
-**Worst Case**: O(n) - Linear time
+**Key Topics**: Time Complexity, Space Complexity, Mathematical Algorithms
 
 ---
 
-## **PART 4: ASYMPTOTIC NOTATIONS EXPLAINED**
+### **Week 2: Deep Recursion**
+**Daily Time**: 2-3 hours
 
-### **Big O Notation (Upper Bound)**
+**Learning Objectives**:
+- Master recursive thinking and problem decomposition
+- Understand tail recursion and optimization
+- Build intuition for recursive solutions
 
-**Mathematical Definition**: 
-f(n) = O(g(n)) if there exist positive constants c and n₀ such that:
-f(n) ≤ c × g(n) for all n ≥ n₀
+**Daily Schedule**:
+- **Monday-Tuesday**: 
+  - Advanced recursion concepts
+  - Tail recursion and applications
+  - Writing effective base cases
+- **Wednesday-Thursday**: 
+  - All recursion practice problems from course
+  - Print patterns, sum calculations using recursion
+- **Friday**: 
+  - Additional recursion problems (Fibonacci variants, tree recursion)
+  - Complex recursive algorithms
+- **Saturday**: 
+  - Recursion speed practice - solve 10 problems in 3 hours
+  - Focus on pattern recognition
+- **Sunday**: 
+  - Review weak areas in recursion
+  - Solve LeetCode recursion medium problems
 
-**Intuitive Meaning**: "f(n) grows no faster than g(n)"
-
-**Example**:
-```python
-def example_algorithm(n):
-    total = 0
-    for i in range(n):        # n iterations
-        total += i            # constant work
-    
-    for i in range(n):        # n iterations  
-        for j in range(n):    # n iterations each
-            total += i * j    # constant work
-    
-    return total
-```
-
-**Analysis**:
-- First loop: n operations
-- Second loop: n × n = n² operations
-- Total: n + n² operations
-- As n grows large, n² dominates
-- **Time Complexity**: O(n²)
-
-### **Omega Notation (Lower Bound)**
-
-**Mathematical Definition**: 
-f(n) = Ω(g(n)) if there exist positive constants c and n₀ such that:
-f(n) ≥ c × g(n) for all n ≥ n₀
-
-**Intuitive Meaning**: "f(n) grows at least as fast as g(n)"
-
-### **Theta Notation (Tight Bound)**
-
-**Mathematical Definition**: 
-f(n) = Θ(g(n)) if f(n) = O(g(n)) AND f(n) = Ω(g(n))
-
-**Intuitive Meaning**: "f(n) grows exactly as fast as g(n)"
-
-**When can we use Theta?**
-Only when best case = worst case = average case
-
-**Example - Array Sum**:
-```python
-def array_sum(arr):
-    total = 0
-    for num in arr:
-        total += num
-    return total
-```
-- **Best Case**: Ω(n) - Must visit every element
-- **Worst Case**: O(n) - Visit every element once
-- **Average Case**: Θ(n) - Always visit every element
-
-**All cases are the same, so we can say Θ(n)**
+**Key Topics**: Recursion, Tail Recursion, Recursive Problem Solving
 
 ---
 
-## **PART 5: COMMON COMPLEXITY CLASSES**
+### **Week 3: Lists & Strings**
+**Daily Time**: 2-3 hours
 
-### **Complexity Hierarchy (Best to Worst)**
+**Learning Objectives**:
+- Master array operations and manipulations
+- Understand string algorithms and pattern matching
+- Learn sliding window and two-pointer techniques
 
-```python
-# O(1) - Constant Time
-def get_first_element(arr):
-    return arr[0] if arr else None
+**Daily Schedule**:
+- **Monday-Tuesday**: 
+  - List operations, comprehensions, slicing
+  - Array algorithms (largest element, second largest, sorting check)
+- **Wednesday**: 
+  - Advanced list problems (Leaders, rotate, move zeros)
+  - Frequency calculations and duplicate removal
+- **Thursday-Friday**: 
+  - String algorithms (anagram, palindrome, subsequence)
+  - String rotations and pattern searching basics
+- **Saturday**: 
+  - Mixed practice - 15 array/string problems
+  - Speed building exercises
+- **Sunday**: 
+  - LeetCode sliding window problems
+  - Two-pointer technique mastery
 
-# O(log n) - Logarithmic Time  
-def binary_search(arr, target):
-    left, right = 0, len(arr) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
-    return -1
-
-# O(n) - Linear Time
-def linear_search(arr, target):
-    for i, val in enumerate(arr):
-        if val == target:
-            return i
-    return -1
-
-# O(n log n) - Linearithmic Time
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
-    
-    return merge(left, right)
-
-# O(n²) - Quadratic Time
-def bubble_sort(arr):
-    n = len(arr)
-    for i in range(n):
-        for j in range(0, n - i - 1):
-            if arr[j] > arr[j + 1]:
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]
-
-# O(2ⁿ) - Exponential Time
-def fibonacci_naive(n):
-    if n <= 1:
-        return n
-    return fibonacci_naive(n-1) + fibonacci_naive(n-2)
-
-# O(n!) - Factorial Time
-def permutations(arr):
-    if len(arr) <= 1:
-        return [arr]
-    
-    result = []
-    for i in range(len(arr)):
-        rest = arr[:i] + arr[i+1:]
-        for perm in permutations(rest):
-            result.append([arr[i]] + perm)
-    return result
-```
-
-### **Growth Rate Comparison**
-
-For n = 1,000,000:
-- O(1): 1 operation
-- O(log n): ~20 operations
-- O(n): 1,000,000 operations
-- O(n log n): ~20,000,000 operations
-- O(n²): 1,000,000,000,000 operations
-- O(2ⁿ): More than atoms in universe!
+**Key Topics**: Arrays, Strings, Sliding Window, Two Pointers
 
 ---
 
-## **PART 6: PRACTICAL ANALYSIS TECHNIQUES**
+### **Week 4: Searching & Sorting**
+**Daily Time**: 2-3 hours
 
-### **Step-by-Step Analysis Method**
+**Learning Objectives**:
+- Master binary search and its variations
+- Understand sorting algorithms and their complexities
+- Learn when to apply different search/sort techniques
 
-**Step 1: Identify the input size**
-**Step 2: Count basic operations**
-**Step 3: Express as function of n**
-**Step 4: Find the dominant term**
-**Step 5: Apply Big O notation**
+**Daily Schedule**:
+- **Monday**: 
+  - Binary search implementation and analysis
+  - First/last occurrence in sorted arrays
+- **Tuesday**: 
+  - Sorting algorithms (bubble, selection, insertion)
+  - Merge sort and quick sort implementation
+- **Wednesday-Thursday**: 
+  - Advanced sorting algorithms and analysis
+  - Heap sort and counting sort
+- **Friday**: 
+  - Searching problems practice
+  - Search in rotated arrays
+- **Saturday**: 
+  - Sorting problems and complexity analysis
+  - Stability in sorting algorithms
+- **Sunday**: 
+  - Mixed practice problems
+  - LeetCode search/sort medium problems
 
-### **Example 1: Nested Loops**
-```python
-def nested_example(n):
-    count = 0
-    for i in range(n):          # Outer loop: n iterations
-        for j in range(i):      # Inner loop: 0,1,2,...,n-1 iterations
-            count += 1          # Constant operation
-    return count
-```
-
-**Analysis**:
-- Outer loop runs n times
-- Inner loop runs 0+1+2+...+(n-1) = n(n-1)/2 times
-- Total operations: n(n-1)/2 = (n² - n)/2
-- Dominant term: n²
-- **Time Complexity**: O(n²)
-
-### **Example 2: Divide and Conquer**
-```python
-def binary_search_recursive(arr, target, left, right):
-    if left > right:
-        return -1
-    
-    mid = (left + right) // 2
-    if arr[mid] == target:
-        return mid
-    elif arr[mid] < target:
-        return binary_search_recursive(arr, target, mid + 1, right)
-    else:
-        return binary_search_recursive(arr, target, left, mid - 1)
-```
-
-**Analysis**:
-- Each recursive call reduces problem size by half
-- Maximum depth: log₂(n)
-- Work at each level: O(1)
-- **Time Complexity**: O(log n)
-
-### **Example 3: Multiple Loops (Not Nested)**
-```python
-def multiple_loops(n):
-    # First loop
-    for i in range(n):
-        print(i)                # O(n)
-    
-    # Second loop  
-    for i in range(n):
-        for j in range(n):
-            print(i, j)         # O(n²)
-    
-    # Third loop
-    for i in range(n):
-        print(i)                # O(n)
-```
-
-**Analysis**:
-- Total: O(n) + O(n²) + O(n) = O(n²)
-- **Rule**: Take the maximum/dominant complexity
+**Key Topics**: Binary Search, Sorting Algorithms, Search Variations
 
 ---
 
-## **PART 7: SPACE COMPLEXITY ANALYSIS**
+## **PHASE 2: CORE DATA STRUCTURES (Weeks 5-10)**
 
-### **Types of Space Usage**
+### **Week 5: Hashing**
+**Daily Time**: 2-3 hours
 
-1. **Input Space**: Space for input data (usually not counted)
-2. **Auxiliary Space**: Extra space used by algorithm
-3. **Output Space**: Space for output data
+**Learning Objectives**:
+- Understand hash functions and collision handling
+- Master Python dictionaries and sets
+- Learn hash-based problem solving patterns
 
-**We typically analyze auxiliary space complexity.**
+**Daily Schedule**:
+- **Monday-Tuesday**: 
+  - Hashing theory, hash functions
+  - Collision handling (chaining vs open addressing)
+- **Wednesday**: 
+  - Python sets and dictionaries mastery
+  - Implementation details and performance
+- **Thursday-Friday**: 
+  - Hashing problems (distinct elements, frequency counting)
+  - Subarray problems using hashing
+- **Saturday**: 
+  - 20 hashing problems from course + LeetCode
+  - Pattern recognition practice
+- **Sunday**: 
+  - Hash map design patterns
+  - Advanced hashing applications
 
-### **Examples**
-
-```python
-# O(1) Space - Constant extra space
-def reverse_array_inplace(arr):
-    left, right = 0, len(arr) - 1
-    while left < right:
-        arr[left], arr[right] = arr[right], arr[left]
-        left += 1
-        right -= 1
-
-# O(n) Space - Linear extra space
-def reverse_array_new(arr):
-    return arr[::-1]  # Creates new array
-
-# O(n) Space - Recursive call stack
-def factorial_recursive(n):
-    if n <= 1:
-        return 1
-    return n * factorial_recursive(n - 1)  # n recursive calls on stack
-```
+**Key Topics**: Hash Tables, Sets, Dictionaries, Hash-based Algorithms
 
 ---
 
-## **PART 8: COMMON MISTAKES AND PITFALLS**
+### **Week 6: Linked Lists**
+**Daily Time**: 2-3 hours
 
-### **Mistake 1: Confusing Best/Average/Worst Case**
-```python
-# This is WRONG thinking:
-# "Quicksort is O(n log n)" 
-# CORRECT:
-# "Quicksort is O(n²) worst case, O(n log n) average case"
-```
+**Learning Objectives**:
+- Master all types of linked lists
+- Understand pointer manipulation techniques
+- Learn fast/slow pointer patterns
 
-### **Mistake 2: Adding vs Multiplying Complexities**
-```python
-# Sequential operations - ADD complexities
-for i in range(n):      # O(n)
-    pass
-for i in range(n):      # O(n)  
-    pass
-# Total: O(n) + O(n) = O(n)
+**Daily Schedule**:
+- **Monday**: 
+  - Singly linked list implementation
+  - Basic operations (insert, delete, search)
+- **Tuesday**: 
+  - Advanced operations (reverse, find middle, nth from end)
+  - Remove duplicates and detect patterns
+- **Wednesday**: 
+  - Circular linked lists
+  - Implementation and applications
+- **Thursday**: 
+  - Doubly linked lists
+  - Bidirectional traversal and operations
+- **Friday**: 
+  - All linked list problems from course
+  - Complex manipulations and algorithms
+- **Saturday**: 
+  - LeetCode linked list medium problems
+  - Speed and accuracy practice
+- **Sunday**: 
+  - Fast/slow pointer technique mastery
+  - Cycle detection and intersection problems
 
-# Nested operations - MULTIPLY complexities  
-for i in range(n):      # O(n)
-    for j in range(n):  # O(n) for each i
-        pass
-# Total: O(n) × O(n) = O(n
+**Key Topics**: Singly/Doubly/Circular Linked Lists, Pointer Manipulation
+
+---
+
+### **Week 7: Stacks & Queues**
+**Daily Time**: 2-3 hours
+
+**Learning Objectives**:
+- Understand LIFO and FIFO principles
+- Master stack and queue applications
+- Learn monotonic stack patterns
+
+**Daily Schedule**:
+- **Monday-Tuesday**: 
+  - Stack implementation and applications
+  - Array and linked list based implementations
+- **Wednesday**: 
+  - Queue and Deque implementation
+  - Circular queue concepts
+- **Thursday**: 
+  - Stack problems (balanced parentheses, next greater element)
+  - Expression evaluation and conversion
+- **Friday**: 
+  - Queue problems and BFS preparation
+  - Priority queue concepts
+- **Saturday**: 
+  - 15 stack/queue problems
+  - Mixed applications practice
+- **Sunday**: 
+  - Monotonic stack pattern practice
+  - Advanced stack/queue algorithms
+
+**Key Topics**: Stacks, Queues, Deques, Expression Evaluation
+
+---
+
+### **Week 8: Trees (Basic)**
+**Daily Time**: 3 hours
+
+**Learning Objectives**:
+- Understand tree data structure fundamentals
+- Master tree traversal techniques
+- Learn basic tree algorithms
+
+**Daily Schedule**:
+- **Monday-Tuesday**: 
+  - Binary tree structure and representation
+  - All traversal methods (inorder, preorder, postorder)
+- **Wednesday**: 
+  - Tree properties (height, size, level order traversal)
+  - Iterative traversal implementations
+- **Thursday**: 
+  - Tree problems from course
+  - Distance and path algorithms
+- **Friday**: 
+  - Binary Search Tree basics
+  - Search, insert, delete operations
+- **Saturday**: 
+  - 20 tree problems practice
+  - Speed building for tree algorithms
+- **Sunday**: 
+  - Tree pattern recognition
+  - LeetCode tree problems
+
+**Key Topics**: Binary Trees, Tree Traversals, Basic Tree Algorithms
+
+---
+
+### **Week 9: Trees (Advanced) & Heaps**
+**Daily Time**: 3 hours
+
+**Learning Objectives**:
+- Master advanced tree operations
+- Understand heap data structure
+- Learn priority queue applications
+
+**Daily Schedule**:
+- **Monday**: 
+  - BST advanced operations (floor, ceiling)
+  - BST validation and fixing
+- **Tuesday**: 
+  - Self-balancing trees (AVL, Red-Black theory)
+  - Tree balancing concepts
+- **Wednesday-Thursday**: 
+  - Heap implementation and heap sort
+  - Min/max heap operations
+- **Friday**: 
+  - Heap problems and heapq library mastery
+  - Priority queue applications
+- **Saturday**: 
+  - Advanced tree and heap problems
+  - Complex tree algorithms
+- **Sunday**: 
+  - Priority queue design patterns
+  - Heap-based algorithms
+
+**Key Topics**: BST Operations, Heaps, Priority Queues, Self-balancing Trees
+
+---
+
+### **Week 10: Bit Magic**
+**Daily Time**: 2-3 hours
+
+**Learning Objectives**:
+- Master bitwise operations
+- Learn bit manipulation techniques
+- Understand space-efficient algorithms
+
+**Daily Schedule**:
+- **Monday-Tuesday**: 
+  - Bitwise operations mastery (AND, OR, XOR, shifts)
+  - Binary representation and bit patterns
+- **Wednesday**: 
+  - Bit manipulation problems
+  - Check/set/clear bit operations
+- **Thursday-Friday**: 
+  - Advanced problems (power of 2, odd occurring elements)
+  - Power set generation using bits
+- **Saturday**: 
+  - 15 bit manipulation problems
+  - Optimization using bit operations
+- **Sunday**: 
+  - Optimize previous solutions using bit tricks
+  - Space-efficient algorithms
+
+**Key Topics**: Bitwise Operations, Bit Manipulation, Space Optimization
+
+---
+
+## **PHASE 3: ADVANCED ALGORITHMS (Weeks 11-16)**
+
+### **Week 11: Advanced Arrays & Strings**
+**Daily Time**: 3 hours
+
+**Learning Objectives**:
+- Master advanced array techniques
+- Learn string pattern matching algorithms
+- Understand sliding window variations
+
+**Daily Schedule**:
+- **Monday**: 
+  - Sliding window technique mastery
+  - Variable and fixed window problems
+- **Tuesday**: 
+  - Kadane's algorithm and variations
+  - Maximum subarray and circular array problems
+- **Wednesday**: 
+  - String pattern matching algorithms
+  - Naive pattern searching improvements
+- **Thursday**: 
+  - KMP algorithm implementation
+  - Rabin-Karp algorithm and rolling hash
+- **Friday**: 
+  - Advanced string problems
+  - Lexicographic problems and string transformations
+- **Saturday**: 
+  - 25 advanced array/string problems
+  - Speed and pattern recognition
+- **Sunday**: 
+  - Pattern matching algorithm practice
+  - Complex string manipulations
+
+**Key Topics**: Advanced Arrays, String Algorithms, Pattern Matching
+
+---
+
+### **Week 12: Advanced Linked Lists & Stacks**
+**Daily Time**: 3 hours
+
+**Learning Objectives**:
+- Master complex linked list algorithms
+- Learn advanced stack applications
+- Understand design patterns with data structures
+
+**Daily Schedule**:
+- **Monday**: 
+  - Cycle detection algorithms (Floyd's algorithm)
+  - Intersection point of linked lists
+- **Tuesday**: 
+  - Clone linked list with random pointers
+  - LRU cache design and implementation
+- **Wednesday**: 
+  - Advanced stack problems (largest rectangle in histogram)
+  - Stack with getMin() in O(1)
+- **Thursday**: 
+  - Expression evaluation (infix, postfix, prefix)
+  - Expression conversion algorithms
+- **Friday**: 
+  - Implement stack using queues
+  - Implement queue using stacks
+- **Saturday**: 
+  - 20 advanced linked list and stack problems
+  - Complex algorithm implementations
+- **Sunday**: 
+  - Design pattern practice
+  - System design using basic data structures
+
+**Key Topics**: Advanced Linked Lists, Stack Applications, Data Structure Design
+
+---
+
+### **Week 13: Graphs (Part 1)**
+**Daily Time**: 3-4 hours
+
+**Learning Objectives**:
+- Understand graph representations
+- Master graph traversal algorithms
+- Learn basic graph problems
+
+**Daily Schedule**:
+- **Monday**: 
+  - Graph representation (adjacency matrix/list)
+  - BFS and DFS implementation
+- **Tuesday**: 
+  - Connected components using BFS/DFS
+  - Cycle detection in undirected graphs
+- **Wednesday**: 
+  - Topological sorting (Kahn's algorithm, DFS-based)
+  - Cycle detection in directed graphs
+- **Thursday**: 
+  - Shortest path in unweighted graphs
+  - BFS applications
+- **Friday**: 
+  - All basic graph problems from course
+  - Graph property calculations
+- **Saturday**: 
+  - Graph traversal practice - 15 problems
+  - Implementation from scratch
+- **Sunday**: 
+  - Graph pattern recognition
+  - Problem classification techniques
+
+**Key Topics**: Graph Traversal, Cycle Detection, Topological Sorting
+
+---
+
+### **Week 14: Graphs (Part 2)**
+**Daily Time**: 3-4 hours
+
+**Learning Objectives**:
+- Master shortest path algorithms
+- Understand minimum spanning trees
+- Learn advanced graph algorithms
+
+**Daily Schedule**:
+- **Monday**: 
+  - Dijkstra's algorithm implementation
+  - Single source shortest path
+- **Tuesday**: 
+  - Bellman-Ford algorithm
+  - Negative cycle detection
+- **Wednesday**: 
+  - Minimum Spanning Tree (Prim's and Kruskal's)
+  - Disjoint set data structure
+- **Thursday**: 
+  - Advanced graph algorithms (Kosaraju's, Tarjan's)
+  - Strongly connected components
+- **Friday**: 
+  - Graph algorithm problems practice
+  - Real-world applications
+- **Saturday**: 
+  - 20 graph algorithm problems
+  - Mixed difficulty practice
+- **Sunday**: 
+  - Graph optimization problems
+  - Network flow basics
+
+**Key Topics**: Shortest Path, MST, Advanced Graph Algorithms
+
+---
+
+### **Week 15: Dynamic Programming**
+**Daily Time**: 3-4 hours
+
+**Learning Objectives**:
+- Master dynamic programming concepts
+- Learn memoization vs tabulation
+- Understand DP patterns and variations
+
+**Daily Schedule**:
+- **Monday**: 
+  - DP concepts, memoization vs tabulation
+  - Optimal substructure and overlapping subproblems
+- **Tuesday**: 
+  - Longest Common Subsequence and variations
+  - String-based DP problems
+- **Wednesday**: 
+  - Longest Increasing Subsequence
+  - Coin change problems (combinations and minimum coins)
+- **Thursday**: 
+  - 0-1 Knapsack problem and variations
+  - Subset sum problems
+- **Friday**: 
+  - Matrix chain multiplication
+  - Palindrome partitioning problems
+- **Saturday**: 
+  - 15 classic DP problems
+  - Pattern recognition in DP
+- **Sunday**: 
+  - DP optimization techniques
+  - Space optimization in DP
+
+**Key Topics**: Dynamic Programming, Memoization, DP Patterns
+
+---
+
+### **Week 16: Advanced Topics & Integration**
+**Daily Time**: 3-4 hours
+
+**Learning Objectives**:
+- Learn remaining advanced topics
+- Integrate all concepts learned
+- Prepare for interviews and competitions
+
+**Daily Schedule**:
+- **Monday**: 
+  - Greedy algorithms and activity selection
+  - Backtracking (N-Queens, Sudoku, Rat in Maze)
+- **Tuesday**: 
+  - Trie data structure implementation
+  - Trie applications and string problems
+- **Wednesday**: 
+  - Segment trees and range queries
+  - Binary Indexed Trees (Fenwick trees)
+- **Thursday**: 
+  - Disjoint set union with path compression
+  - Advanced data structure applications
+- **Friday**: 
+  - Mixed practice covering all topics
+  - Problem solving strategies
+- **Saturday**: 
+  - 30 mixed problems (interview simulation)
+  - Time pressure practice
+- **Sunday**: 
+  - Week area revision
+  - Speed practice and final review
+
+**Key Topics**: Greedy, Backtracking, Tries, Segment Trees, Advanced Data Structures
+
+---
+
+## **DAILY STRUCTURE BREAKDOWN**
+
+### **Standard 2-4 Hour Daily Schedule**:
+
+**Hour 1: Learning Phase (45-60 minutes)**
+- Watch lectures or read theory
+- Understand concepts and algorithms
+- Take notes on key patterns
+
+**Hour 2: Implementation Phase (45-60 minutes)**
+- Code algorithms from scratch
+- Understand implementation details
+- Debug and optimize code
+
+**Hour 3: Practice Phase (45-60 minutes)**
+- Solve course practice problems
+- Apply learned concepts
+- Build problem-solving speed
+
+**Hour 4: Advanced Practice (45-60 minutes)**
+- LeetCode problems related to topic
+- Speed practice with timer
+- Pattern recognition exercises
+
+---
+
+## **WEEKLY GOALS AND MILESTONES**
+
+### **Problem Solving Targets**:
+- **Weeks 1-4**: 50-60 problems per week
+- **Weeks 5-10**: 60-70 problems per week  
+- **Weeks 11-16**: 70-80 problems per week
+
+### **Speed Benchmarks**:
+- **Week 4**: Easy problems in 15-20 minutes
+- **Week 8**: Medium problems in 30-45 minutes
+- **Week 12**: Pattern recognition within 2-3 minutes
+- **Week 16**: Hard problems systematic approach in 60+ minutes
+
+### **Implementation Goals**:
+- **Weekly**: Implement 2-3 algorithms completely from scratch
+- **Bi-weekly**: Create one data structure implementation
+- **Monthly**: Build a mini-project using learned concepts
+
+---
+
+## **SUCCESS METRICS AND EVALUATION**
+
+### **Weekly Assessment**:
+- **Concept Understanding**: Can explain algorithm to someone else
+- **Implementation Skill**: Can code algorithm without reference
+- **Problem Solving**: Can solve related problems independently
+- **Speed**: Meets weekly speed benchmarks
+
+### **Monthly Milestones**:
+- **Month 1**: Strong foundation in basics and recursion
+- **Month 2**: Proficiency in core data structures
+- **Month 3**: Competency in graph algorithms and DP
+- **Month 4**: Interview-ready with advanced topics mastery
+
+### **Final Competency Markers**:
+- Solve 80% of LeetCode Medium problems
+- Implement any basic algorithm from memory
+- Recognize patterns in new problems quickly
+- Explain time/space complexity for any solution
+- Design efficient solutions for novel problems
+
+---
+
+## **RECOMMENDED RESOURCES**
+
+### **Primary**:
+- GeeksforGeeks DSA Course (provided curriculum)
+- LeetCode for additional practice
+- Personal coding notebook for patterns
+
+### **Supplementary**:
+- "Cracking the Coding Interview" by Gayle McDowell
+- LeetCode discuss section for alternative solutions
+- Visualgo.net for algorithm visualizations
+
+### **Tools**:
+- Python IDE (PyCharm, VS Code)
+- Timer for speed practice
+- Notebook for pattern documentation
+- LeetCode premium for company-specific problems
+
+---
+
+## **QUICK REFERENCE TABLE**
+
+| Week | Phase | Focus Area | Daily Hours | Key Topics | Problems/Week |
+|------|-------|------------|-------------|------------|---------------|
+| 1 | Foundation | Analysis & Math | 2-3 | Time Complexity, Recursion Basics | 50-60 |
+| 2 | Foundation | Deep Recursion | 2-3 | Advanced Recursion, Tail Recursion | 50-60 |
+| 3 | Foundation | Arrays & Strings | 2-3 | Sliding Window, Two Pointers | 50-60 |
+| 4 | Foundation | Search & Sort | 2-3 | Binary Search, Sorting Algorithms | 50-60 |
+| 5 | Core DS | Hashing | 2-3 | Hash Tables, Sets, Dictionaries | 60-70 |
+| 6 | Core DS | Linked Lists | 2-3 | All LL Types, Pointer Manipulation | 60-70 |
+| 7 | Core DS | Stacks & Queues | 2-3 | LIFO/FIFO, Expression Evaluation | 60-70 |
+| 8 | Core DS | Trees Basic | 3 | Binary Trees, Traversals, BST | 60-70 |
+| 9 | Core DS | Trees Advanced & Heaps | 3 | Advanced BST, Heaps, Priority Queues | 60-70 |
+| 10 | Core DS | Bit Magic | 2-3 | Bitwise Operations, Bit Manipulation | 60-70 |
+| 11 | Advanced | Advanced Arrays/Strings | 3 | Advanced Techniques, Pattern Matching | 70-80 |
+| 12 | Advanced | Advanced DS Applications | 3 | Complex Algorithms, Design Patterns | 70-80 |
+| 13 | Advanced | Graphs Part 1 | 3-4 | Traversal, Cycles, Topological Sort | 70-80 |
+| 14 | Advanced | Graphs Part 2 | 3-4 | Shortest Path, MST, Advanced Graphs | 70-80 |
+| 15 | Advanced | Dynamic Programming | 3-4 | DP Patterns, Memoization, Optimization | 70-80 |
+| 16 | Advanced | Integration & Advanced Topics | 3-4 | Greedy, Backtracking, Tries, Review | 70-80 |
+
+---
+
+**Total Duration**: 16 Weeks (4 Months)
+**Total Time Investment**: 350-400 hours
+**Expected Outcome**: Interview-ready with strong DSA foundation
+**Problem Solving Count**: 1000+ problems across all difficulty levels
