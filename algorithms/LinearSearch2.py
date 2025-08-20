@@ -8,12 +8,13 @@ def locate_card( cards, query):
     right = len(cards) - 1
     # Loop while the range is still valid
     while left <= right:
-        mid = (left + right) //2 # Always get the middle one,,start from it and evaluate if our target lies to the left or to the right.......this is a sorted list
+        mid = (left + right) // 2 # Always get the middle one,,start from it and evaluate if our target lies to the left or to the right.......this is a sorted list
         print('Checking position:', mid)
-        if cards[mid] == query:
+        mid_number = cards[mid]
+        if mid_number == query:
             print('Card found at position:', mid)
             return mid
-        elif cards[mid] < query:
+        elif mid_number < query:
             left = mid + 1 # Move to the right half
             print('Card not found at position:', mid, 'moving right')
         else:
