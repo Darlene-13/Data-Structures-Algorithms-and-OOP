@@ -67,7 +67,9 @@ class Solution:
         return result
     
     def search_linear(self, arr, k):
-        for i in range(len(arr)):
+        i = 0
+        while i < len(arr):
             if arr[i] == k:
                 return i
+            i += 1
         return -1
